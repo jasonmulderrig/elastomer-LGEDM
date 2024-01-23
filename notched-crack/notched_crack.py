@@ -9,18 +9,13 @@ import textwrap
 
 class NotchedCrack(ElastomerLGEDMProblem):
 
-    def __init__(
-            self, L, H, x_notch_point, r_notch,
-            notch_fine_mesh_layer_level_num=2, fine_mesh_elem_size=0.001,
-            coarse_mesh_elem_size=0.1, l_nl=0.1):
+    def __init__(self, L, H, x_notch_point, r_notch, mesh_elem_size, l_nl):
 
         self.L = L
         self.H = H
         self.x_notch_point = x_notch_point
         self.r_notch = r_notch
-        self.notch_fine_mesh_layer_level_num = notch_fine_mesh_layer_level_num
-        self.fine_mesh_elem_size = fine_mesh_elem_size
-        self.coarse_mesh_elem_size  = coarse_mesh_elem_size
+        self.mesh_elem_size  = mesh_elem_size
         self.l_nl = l_nl
         
         ElastomerLGEDMProblem.__init__(self)
@@ -262,22 +257,22 @@ class NotchedCrack(ElastomerLGEDMProblem):
         geofile = \
             """
             Mesh.Algorithm = 8;
-            coarse_mesh_elem_size = DefineNumber[ %g, Name "Parameters/coarse_mesh_elem_size" ];
+            mesh_elem_size = DefineNumber[ %g, Name "Parameters/mesh_elem_size" ];
             x_notch_point = DefineNumber[ %g, Name "Parameters/x_notch_point" ];
             r_notch = DefineNumber[ %g, Name "Parameters/r_notch" ];
             L = DefineNumber[ %g, Name "Parameters/L"];
             H = DefineNumber[ %g, Name "Parameters/H"];
-            Point(1) = {0, 0, 0, coarse_mesh_elem_size};
-            Point(2) = {x_notch_point-r_notch, 0, 0, coarse_mesh_elem_size};
-            Point(3) = {0, -r_notch, 0, coarse_mesh_elem_size};
-            Point(4) = {0, -H/2, 0, coarse_mesh_elem_size};
-            Point(5) = {L, -H/2, 0, coarse_mesh_elem_size};
-            Point(6) = {L, H/2, 0, coarse_mesh_elem_size};
-            Point(7) = {0, H/2, 0, coarse_mesh_elem_size};
-            Point(8) = {0, r_notch, 0, coarse_mesh_elem_size};
-            Point(9) = {x_notch_point-r_notch, r_notch, 0, coarse_mesh_elem_size};
-            Point(10) = {x_notch_point, 0, 0, coarse_mesh_elem_size};
-            Point(11) = {x_notch_point-r_notch, -r_notch, 0, coarse_mesh_elem_size};
+            Point(1) = {0, 0, 0, mesh_elem_size};
+            Point(2) = {x_notch_point-r_notch, 0, 0, mesh_elem_size};
+            Point(3) = {0, -r_notch, 0, mesh_elem_size};
+            Point(4) = {0, -H/2, 0, mesh_elem_size};
+            Point(5) = {L, -H/2, 0, mesh_elem_size};
+            Point(6) = {L, H/2, 0, mesh_elem_size};
+            Point(7) = {0, H/2, 0, mesh_elem_size};
+            Point(8) = {0, r_notch, 0, mesh_elem_size};
+            Point(9) = {x_notch_point-r_notch, r_notch, 0, mesh_elem_size};
+            Point(10) = {x_notch_point, 0, 0, mesh_elem_size};
+            Point(11) = {x_notch_point-r_notch, -r_notch, 0, mesh_elem_size};
             Line(1) = {11, 3};
             Line(2) = {3, 4};
             Line(3) = {4, 5};
@@ -290,7 +285,7 @@ class NotchedCrack(ElastomerLGEDMProblem):
             Curve Loop(21) = {1, 2, 3, 4, 5, 6, 7, 8, 9};
             Plane Surface(31) = {21};
             Mesh.MshFileVersion = 2.0;
-            """ % (self.coarse_mesh_elem_size, self.x_notch_point, self.r_notch, self.L, self.H)
+            """ % (self.mesh_elem_size, self.x_notch_point, self.r_notch, self.L, self.H)
         
         geofile = textwrap.dedent(geofile)
 
@@ -298,13 +293,11 @@ class NotchedCrack(ElastomerLGEDMProblem):
         H_string = "{:.2f}".format(self.H)
         x_notch_point_string = "{:.3f}".format(self.x_notch_point)
         r_notch_string = "{:.2f}".format(self.r_notch)
-        coarse_mesh_elem_size_string = (
-            "{:.2f}".format(self.coarse_mesh_elem_size)
-        )
+        mesh_elem_size_string = "{:.2f}".format(self.mesh_elem_size)
 
         meshname = (
             L_string + "_" + H_string + "_" + x_notch_point_string
-            + "_" + r_notch_string + "_" + coarse_mesh_elem_size_string
+            + "_" + r_notch_string + "_" + mesh_elem_size_string
         )
         
         return gmsh_mesher(geofile, self.prefix(), meshname)
@@ -446,13 +439,7 @@ if __name__ == '__main__':
     L = 10 * x_notch_point 
     H = 40 * x_notch_point
     r_notch = 0.02
-    notch_fine_mesh_layer_level_num = 1
-    fine_mesh_elem_size = 0.01
-    coarse_mesh_elem_size = 0.01
-    l_nl = coarse_mesh_elem_size
-    problem = (
-        NotchedCrack(L, H, x_notch_point, r_notch,
-                     notch_fine_mesh_layer_level_num, fine_mesh_elem_size,
-                     coarse_mesh_elem_size, l_nl)
-    )
+    mesh_elem_size = 0.01
+    l_nl = mesh_elem_size
+    problem = NotchedCrack(L, H, x_notch_point, r_notch, mesh_elem_size, l_nl)
     problem.solve()

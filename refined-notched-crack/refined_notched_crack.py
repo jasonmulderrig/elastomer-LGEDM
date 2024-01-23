@@ -11,8 +11,8 @@ class RefinedNotchedCrack(ElastomerLGEDMProblem):
 
     def __init__(
             self, L, H, x_notch_point, r_notch,
-            notch_fine_mesh_layer_level_num=2, fine_mesh_elem_size=0.001,
-            coarse_mesh_elem_size=0.1, l_nl=0.1):
+            notch_fine_mesh_layer_level_num, fine_mesh_elem_size,
+            coarse_mesh_elem_size, l_nl):
 
         self.L = L
         self.H = H
