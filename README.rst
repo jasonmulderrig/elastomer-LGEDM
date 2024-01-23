@@ -26,15 +26,15 @@ If need be, please refer to the general and most up-to-date Internet presence of
 Usage
 *****
 
-The ``elastomer_lgedm`` directory contains the following files that constitute the ``elastomer-lgedm`` package: ``composite_ufjc.py``, ``rate_dependence_scission.py``, ``scission_model.py``, ``core.py``, ``composite_ufjc_network.py``, ``default_parameters.py``, ``problem.py``, and ``utility.py``. The ``notched-crack`` and ``refined-notched-crack`` directories respectively contain ``notched_crack.py`` and ``refined_notched_crack.py``, the main executible files for this repository. Each of these files creates the finite element problem for the elastomer LGEDM, solves the problem, and (to a certain extent) post-processes results. Before using these codes, it is highly recommended that you carefully examine each and every one of the aforementioned Python codes to understand how the code works as a whole, how certain parts of the code depend on other packages, how certain parts of the code relate to one another, and how the code is generally structured (in an object-oriented fashion). If necessary, feel free to modify any of these codes for your purposes.
+The ``elastomer_lgedm`` directory contains the following files that constitute the ``elastomer-lgedm`` package: ``composite_ufjc.py``, ``rate_dependence_scission.py``, ``scission_model.py``, ``core.py``, ``composite_ufjc_network.py``, ``default_parameters.py``, ``problem.py``, and ``utility.py``. The ``notched-crack`` and ``refined-notched-crack`` directories respectively contain ``notched_crack.py`` and ``refined_notched_crack.py``, the main executable files for this repository. Each of these files creates the finite element problem for the elastomer LGEDM, solves the problem, and (to a certain extent) post-processes results. Before using these codes, it is highly recommended that you carefully examine each and every one of the aforementioned Python codes to understand how the code works as a whole, how certain parts of the code depend on other packages, how certain parts of the code relate to one another, and how the code is generally structured (in an object-oriented fashion). If necessary, feel free to modify any of these codes for your purposes.
 
-In order to run either of the main executible files in serial, first activate the Conda environment, and then execute the following command in the terminal
+In order to run either of the main executable files in serial, first activate the Conda environment, and then execute the following command in the terminal
 
 ::
 
     python3 {notched_crack, refined_notched_crack}.py
 
-In order to run either of the main executible files in parallel (thanks to the parallel computing capabilities of FEniCS), first activate the Conda environment, and then execute the following command in the terminal
+In order to run either of the main executable files in parallel (thanks to the parallel computing capabilities of FEniCS), first activate the Conda environment, and then execute the following command in the terminal
 
 ::
 

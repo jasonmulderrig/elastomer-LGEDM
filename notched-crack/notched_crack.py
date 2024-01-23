@@ -353,7 +353,7 @@ class NotchedCrack(ElastomerLGEDMProblem):
             DirichletBC(self.V.sub(0).sub(1), self.u_y_expression, TopBoundary())
         )
 
-        return [bc_I, bc_II, bc_III]
+        self.bc = [bc_I, bc_II, bc_III]
     
     def F_func(self, t):
         """
