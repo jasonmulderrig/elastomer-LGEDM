@@ -160,7 +160,7 @@ class RefinedNotchedCrack(ElastomerLGEDMProblem):
         ppp["save_sigma_mesh"] = False
 
         ppp["save_u_mesh"] = True
-        ppp["save_lmbda_c_tilde_max_mesh"] = True
+        # ppp["save_lmbda_c_tilde_max_mesh"] = True
         ppp["save_g_mesh"] = True
         ppp["save_D_c_mesh"] = True
 

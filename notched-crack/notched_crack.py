@@ -156,14 +156,10 @@ class NotchedCrack(ElastomerLGEDMProblem):
 
         ppp["save_u_mesh"] = True
         # ppp["save_lmbda_c_mesh"] = True
-        ppp["save_lmbda_c_mesh"] = False
         # ppp["save_lmbda_c_tilde_max_mesh"] = True
-        ppp["save_lmbda_c_tilde_max_mesh"] = False
-        # ppp["save_g_mesh"] = True
-        # ppp["save_D_c_mesh"] = True
-        ppp["save_D_c_mesh"] = False
+        ppp["save_g_mesh"] = True
+        ppp["save_D_c_mesh"] = True
         # ppp["save_sigma_mesh"] = True
-        ppp["save_sigma_mesh"] = False
 
     def set_user_parameters_in_lists(self):
         """
